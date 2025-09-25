@@ -1,0 +1,58 @@
+@page
+@{
+    Layout = null; // optional, if you don't want a site layout
+
+    string message = "";
+    bool loggedIn = false;
+
+    if (IsPost) // Checks if the form was submitted
+    {
+        var user = Request.Form["username"];
+        var pass = Request.Form["password"];
+
+        if (user == "enos" && pass == "abc123")
+        {
+            loggedIn = true;
+        }
+        else
+        {
+            message = "Invalid username or password.";
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Login</title>
+</head>
+<body>
+    @if (!loggedIn)
+    {
+        <h2>Login</h2>
+        <form method="post">
+            <div>
+                <label>Username:</label>
+                <input type="text" name="username" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <p style="color:red">@message</p>
+        }
+    }
+    else
+    {
+        <h1>Welcome to the clinic page!</h1>
+        <p>You are logged in as <strong>enos</strong>.</p>
+        <!-- Put your clinic HTML content right here -->
+    }
+</body>
+</html>
+
